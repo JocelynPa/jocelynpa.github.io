@@ -1,9 +1,15 @@
 <!DOCTYPE html>
-<html>
-<head>
-  <script>
-    window.location = "sentry-tesla://callback" + window.location.search;
-  </script>
-</head>
-<body>Redirection en cours...</body>
-</html>
+<html><head><meta charset="utf-8"/>
+<title>Connexion Tesla…</title>
+<script>
+  var qs = window.location.search;
+  var BACKEND = "https://f5f9e15d-8db1-42c4-9b7d-9e61849cb210.preview.emergentagent.com";
+  if (qs.indexOf("code=") !== -1) {
+    window.location.replace(BACKEND + "/api/tesla/callback" + qs);
+  } else {
+    document.body.innerHTML = "Aucun code reçu. Réessayez depuis l'application.";
+  }
+</script></head>
+<body style="background:#000;color:#fff;font-family:sans-serif;text-align:center;padding-top:80px">
+Connexion en cours…
+</body></html>
