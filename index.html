@@ -5,7 +5,7 @@
   var params = new URLSearchParams(window.location.search);
   var code = params.get("code");
   var state = params.get("state");
-  var BACKEND = "https://github.com/JocelynPa/For_Claude/tree/main/backend"; // <-- à remplacer
+  var BACKEND = "https://grapple-battering-donation.ngrok-free.dev"; // <-- ton URL ngrok actuelle
 
   var body = document.getElementById("msg");
 
@@ -14,7 +14,10 @@
   } else {
     fetch(BACKEND + "/auth/tesla/exchange", {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
+      headers: {
+        "Content-Type": "application/json",
+        "ngrok-skip-browser-warning": "true"
+      },
       body: JSON.stringify({ code: code, state: state }),
     })
       .then(function () {
