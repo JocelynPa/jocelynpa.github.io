@@ -1,7 +1,30 @@
 <!DOCTYPE html>
 <html><head><meta charset="utf-8"/>
 <title>Connexion Tesla…</title>
-</head>
+<script>
+  var params = new URLSearchParams(window.location.search);
+  var code = params.get("code");
+  var state = params.get("state");
+  var BACKEND = "https://github.com/JocelynPa/For_Claude/tree/main/backend"; // <-- à remplacer
+
+  var body = document.getElementById("msg");
+
+  if (!code || !state) {
+    body.textContent = "Aucun code reçu. Réessaie depuis l'application.";
+  } else {
+    fetch(BACKEND + "/auth/tesla/exchange", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ code: code, state: state }),
+    })
+      .then(function () {
+        body.textContent = "Connexion réussie. Tu peux revenir à l'application.";
+      })
+      .catch(function () {
+        body.textContent = "La connexion a échoué. Retourne à l'application et réessaie.";
+      });
+  }
+</script></head>
 <body style="background:#000;color:#fff;font-family:sans-serif;text-align:center;padding-top:80px">
-Connexion en cours… tu peux revenir à l'application.
+<p id="msg">Connexion en cours…</p>
 </body></html>
